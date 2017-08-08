@@ -1,0 +1,110 @@
+html, body {
+    padding: 0;
+    margin: 0;
+    font-family: arial, sans-serif;
+    color: gray;
+}
+
+h2 {
+    display: inline;
+}
+
+.grid-container {
+    display: grid;
+    height: 100vh;
+    grid: 80px 50px 1fr / 250px 25px 1fr;
+    grid-template-areas:
+        ". . header"
+        ". . tabs"
+        "posts . main"
+}
+
+@media screen and (max-width: 600px) {
+    .grid-container {
+        display: grid;
+        height: 100vh;
+        grid: 80px 50px 1fr 4fr / 1fr;
+        grid-template-areas:
+            "header"
+            "tabs"
+            "posts"
+            "main"
+    }
+}
+
+.header {
+    grid-area: header;
+    padding-left: 20px;
+}
+
+.tabs {
+    grid-area: tabs;
+    display: flex;
+    padding-left: 20px;
+}
+
+.posts {
+    grid-area: posts;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+}
+
+.main {
+    grid-area: main;
+    padding-left: 20px;
+}
+
+.tab-item {
+    width: 200px;
+    font-size: 14pt;
+    padding-top: 12px;
+    text-align: center;
+    border: 2px solid gray;
+    position: relative;
+}
+
+.tab-item:first-of-type {
+    border-right: 0;
+}
+
+.tab-item .fa {
+    position: absolute;
+    top: 13px;
+    left: 15px;
+}
+
+ul.posts-content {
+    list-style-type: none;
+    display: inline-flex;
+    flex-direction: column;
+    padding-left: 10px;
+}
+
+ul.posts-content li {
+    border-bottom: 1px solid gray;
+    padding-bottom: 30px;
+}
+
+.post-date {
+    margin-left: 20px;
+    font-size: 10pt;
+}
+
+form.posts_form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  padding-left: 10px;
+  width: 300px;
+}
+
+input {
+    margin-bottom: 10px;
+}
+
+input.submit {
+  width: 150px;
+  margin-left: 150px;
+  margin-top: 10px;
+}
