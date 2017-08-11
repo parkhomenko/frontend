@@ -1,7 +1,7 @@
 import {Rest} from "express-restful-es6";
 import db from "../db";
 
-@Rest('/')
+@Rest('/posts')
 class PostResource {
     
     posts() {

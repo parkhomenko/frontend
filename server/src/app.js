@@ -5,6 +5,8 @@ var server = express();
 
 var port = 5000;
 
+server.use(express.static(__dirname + '/public'));
+
 restful.configure(server, {
     dirname: __dirname + '/resources'
 });

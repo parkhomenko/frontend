@@ -1,7 +1,7 @@
 import {Rest} from 'express-restful-es6';
 import db from '../db';
 
-@Rest('/latest')
+@Rest('/widgets/latest')
 class LatestPostsWidget {
     
     posts() {
@@ -28,7 +28,7 @@ class LatestPostsWidget {
     }
 }
 
-@Rest('/count')
+@Rest('/widgets/count')
 class PostsCountWidget {
     
     postsCount() {
