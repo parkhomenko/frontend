@@ -1,56 +1,40 @@
 import {Rest} from 'express-restful-es6';
-import db from '../db';
+import WidgetRepository from "../repository/widgets-repository";
 
 @Rest('/widgets/latest')
 class LatestPostsWidget {
     
-    posts() {
-        return new Promise((resolve, reject) => {
-            db.query('select title from posts order by pdate desc limit 5', function(error, results) {
-                if (error) {
-                    resolve({
-                        status: 'error',
-                        message: error
-                    });
-                }
-                else {
-                    resolve({
-                        status: 'success',
-                        data: results
-                    });
-                }
-            });
-        })
+    constructor() {
+        this.widgetRepository = new WidgetRepository();
     }
     
-    get() {
-        return this.posts();
+    get(req, resp, next) {
+        return this.widgetRepository.getLatestPosts()
+            .then(result => {
+                return {
+                    status: 'success',
+                    data: result
+                }
+            })
+            .catch(next);
     }
 }
 
 @Rest('/widgets/count')
 class PostsCountWidget {
     
-    postsCount() {
-        return new Promise((resolve, reject) => {
-            db.query('select count(*) as cnt from posts', function(error, results) {
-                if (error) {
-                    resolve({
-                        status: 'error',
-                        message: error
-                    });
-                }
-                else {
-                    resolve({
-                        status: 'success',
-                        data: results[0].cnt
-                    })
-                }
-            })
-        })
+    constructor() {
+        this.widgetRepository = new WidgetRepository();
     }
     
-    get() {
-        return this.postsCount();
+    get(req, resp, next) {
+        return this.widgetRepository.getPostsCount()
+            .then(result => {
+                return {
+                    status: 'success',
+                    data: result
+                }
+            })
+            .catch(next);
     }
 }

@@ -1,58 +1,51 @@
 import {Rest} from "express-restful-es6";
-import db from "../db";
+import PostRepository from "../repository/posts-repository";
 
 @Rest('/posts')
 class PostResource {
     
-    posts() {
-        return new Promise((resolve, reject) => {
-            db.query('select * from posts order by pdate desc', function(error, results) {
-                if (error) {
-                    resolve({
-                        status: 'error',
-                        message: error
-                    });
-                }
-                else {
-                    resolve({
-                        status: 'success',
-                        data: results
-                    });
-                }
-            });
-        })
+    constructor() {
+        this.postRepository = new PostRepository();
     }
     
-    addNewPost() {
-        return new Promise((resolve, reject) => {
-            const date = new Date().toISOString().slice(0, 19).replace('T', ' ');
-            const record = {
-                title: this.body.title,
-                content: this.body.content,
-                pdate: date
-            };
-            
-            db.query('insert into posts set ?', this.body, function(error, results) {
-                if (error) {
-                    resolve({
-                        status: 'error',
-                        message: error
-                    });
-                }
-                else {
-                    resolve({
-                        status: 'success'
-                    });
+    get(req, resp, next) {
+        return this.postRepository.getPosts()
+            .then(result => {
+                return {
+                    status: 'success',
+                    data: result
                 }
             })
-        });
+            .catch(next);
     }
     
-    get() {
-        return this.posts();
+    post(req, resp, next) {
+        return this.postRepository.newPost(this.body.title, this.body.content)
+            .then(result => {
+                return {
+                    status: 'success'
+                }
+            })
+            .catch(next);
     }
     
-    post() {
-        return this.addNewPost();
+    put(req, resp, next) {
+        return this.postRepository.editPost(this.body.id, this.body.title, this.body.content)
+            .then(result => {
+                return {
+                    status: 'success'
+                }
+            })
+            .catch(next);
+    }
+    
+    delete(req, resp, next) {
+        return this.postRepository.deletePost(this.body.id)
+            .then(result => {
+                return {
+                    status: 'success'
+                }
+            })
+            .catch(next);
     }
 }

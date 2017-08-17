@@ -2,16 +2,16 @@ html, body {
     padding: 0;
     margin: 0;
     font-family: arial, sans-serif;
-    font-size: 62.5%; /* converts to 10px */
+    font-size: 10px;
     color: gray;
 }
 
 body {
-    font-size: 1.4rem; /* will be 14px */
+    font-size: 1.4rem;
 }
 
 h1 {
-    font-size: 2.4rem; /* will be 24px */
+    font-size: 2.4rem;
 }
 
 .grid-container {
@@ -25,7 +25,6 @@ h1 {
 }
 
 @media screen and (max-width: 60rem) {
-    /* it should be 60 * 10 = 600px, but it starts at 900px */
     .grid-container {
         grid: 8rem 5rem 1fr 4fr / 2rem 1fr;
         grid-template-areas:

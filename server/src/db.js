@@ -1,20 +1,17 @@
-import mysql from 'mysql';
+import orm from 'orm';
 
-const config = {
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'blog',
-    port: 3306
-};
-
-const pool = mysql.createPool(config);
-pool.getConnection(function(err, connection) {
-    //connected if no err is set
+const orm_db = orm.connect({
+    host: "localhost",
+    database: "blog",
+    user: "root",
+    password: "root",
+    protocol: "mysql",
+    port: "3306",
+    query: {pool: true, debug: true}
+}, (error, db) => {
+    if (error) {
+        return console.error("Connection error: " + error);
+    }
 });
 
-pool.on('error', function(err) {
-    console.log(err.code);
-});
-
-export default pool;
+export default orm_db;

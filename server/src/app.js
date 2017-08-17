@@ -11,6 +11,14 @@ restful.configure(server, {
     dirname: __dirname + '/resources'
 });
 
-server.listen(port, function (err) {
+server.use((error, req, resp, next) => {
+    resp.send({
+        status: 'error',
+        message: error
+    });
+    next();
+})
+
+server.listen(port, err => {
     console.log("running server on port " + port);
 })
