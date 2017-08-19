@@ -1,7 +1,7 @@
 import {Rest} from "express-restful-es6";
 import PostRepository from "../repository/posts-repository";
 
-@Rest('/posts')
+@Rest("/posts")
 class PostResource {
     
     constructor() {
@@ -12,9 +12,9 @@ class PostResource {
         return this.postRepository.getPosts()
             .then(result => {
                 return {
-                    status: 'success',
+                    status: "success",
                     data: result
-                }
+                };
             })
             .catch(next);
     }
@@ -23,8 +23,8 @@ class PostResource {
         return this.postRepository.newPost(this.body.title, this.body.content)
             .then(result => {
                 return {
-                    status: 'success'
-                }
+                    status: "success"
+                };
             })
             .catch(next);
     }
@@ -33,8 +33,8 @@ class PostResource {
         return this.postRepository.editPost(this.body.id, this.body.title, this.body.content)
             .then(result => {
                 return {
-                    status: 'success'
-                }
+                    status: "success"
+                };
             })
             .catch(next);
     }
@@ -43,8 +43,8 @@ class PostResource {
         return this.postRepository.deletePost(this.body.id)
             .then(result => {
                 return {
-                    status: 'success'
-                }
+                    status: "success"
+                };
             })
             .catch(next);
     }

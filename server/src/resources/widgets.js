@@ -1,7 +1,7 @@
-import {Rest} from 'express-restful-es6';
+import {Rest} from "express-restful-es6";
 import WidgetRepository from "../repository/widgets-repository";
 
-@Rest('/widgets/latest')
+@Rest("/widgets/latest")
 class LatestPostsWidget {
     
     constructor() {
@@ -12,15 +12,15 @@ class LatestPostsWidget {
         return this.widgetRepository.getLatestPosts()
             .then(result => {
                 return {
-                    status: 'success',
+                    status: "success",
                     data: result
-                }
+                };
             })
             .catch(next);
     }
 }
 
-@Rest('/widgets/count')
+@Rest("/widgets/count")
 class PostsCountWidget {
     
     constructor() {
@@ -31,9 +31,9 @@ class PostsCountWidget {
         return this.widgetRepository.getPostsCount()
             .then(result => {
                 return {
-                    status: 'success',
+                    status: "success",
                     data: result
-                }
+                };
             })
             .catch(next);
     }

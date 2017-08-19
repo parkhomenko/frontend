@@ -1,4 +1,4 @@
-import orm from 'orm';
+import orm from "orm";
 
 const orm_db = orm.connect({
     host: "localhost",
@@ -8,9 +8,9 @@ const orm_db = orm.connect({
     protocol: "mysql",
     port: "3306",
     query: {pool: true, debug: true}
-}, (error, db) => {
+}, error => {
     if (error) {
-        return console.error("Connection error: " + error);
+        return Console.error("Connection error: " + error);
     }
 });
 

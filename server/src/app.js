@@ -1,24 +1,24 @@
-import express from 'express';
-import restful from 'express-restful-es6';
+import express from "express";
+import restful from "express-restful-es6";
 
 var server = express();
 
 var port = 5000;
 
-server.use(express.static(__dirname + '/public'));
+server.use(express.static(__dirname + "/public"));
 
 restful.configure(server, {
-    dirname: __dirname + '/resources'
+    dirname: __dirname + "/resources"
 });
 
 server.use((error, req, resp, next) => {
     resp.send({
-        status: 'error',
+        status: "error",
         message: error
     });
     next();
-})
+});
 
-server.listen(port, err => {
-    console.log("running server on port " + port);
-})
+server.listen(port, error => {
+    Console.error("running server on port " + port + ", error" + error);
+});

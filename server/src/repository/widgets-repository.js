@@ -1,17 +1,17 @@
-import Post from '../model/Post';
+import Post from "../model/Post";
 
 class WidgetRepository {
     
     getLatestPosts() {
         return new Promise((resolve, reject) => {
-            Post.find({}, {limit: 5, order: '-pdate'}, (error, results) => {
+            Post.find({}, {limit: 5, order: "-pdate"}, (error, results) => {
                 if (error) {
                     reject(error);
                 } else {
                     resolve(results);
                 }
             });
-        })
+        });
     }
     
     getPostsCount() {
@@ -23,7 +23,7 @@ class WidgetRepository {
                     resolve(results);
                 }
             });
-        })
+        });
     }
 }
 

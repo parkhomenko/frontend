@@ -1,7 +1,7 @@
-import Post from '../model/Post';
+import Post from "../model/Post";
 
 class PostRepository {
-    
+
     getPosts() {
         return new Promise((resolve, reject) => {
             Post.all((error, results) => {
@@ -11,16 +11,16 @@ class PostRepository {
                     resolve(results);
                 }
             });
-        })
+        });
     }
-    
+
     newPost(title, content) {
         const post = {
             title: title,
             content: content,
             pdate: new Date()
         };
-        
+
         return new Promise((resolve, reject) => {
             Post.create(post, (error, results) => {
                 if (error) {
@@ -28,10 +28,10 @@ class PostRepository {
                 } else {
                     resolve(results);
                 }
-            })
-        })
+            });
+        });
     }
-    
+
     editPost(id, title, content) {
         return new Promise((resolve, reject) => {
             Post.get(id, (error, item) => {
@@ -46,12 +46,12 @@ class PostRepository {
                         } else {
                             resolve(item);
                         }
-                    })
+                    });
                 }
-            })
-        })
+            });
+        });
     }
-    
+
     deletePost(id) {
         return new Promise((resolve, reject) => {
             Post.get(id, (error, item) => {
@@ -64,10 +64,10 @@ class PostRepository {
                         } else {
                             resolve(item);
                         }
-                    })
+                    });
                 }
-            })
-        })
+            });
+        });
     }
 }
 

@@ -1,4 +1,4 @@
-import db from '../db';
+import db from "../db";
 
 const Post = db.define("posts", {
     id: {type: "serial", key: true},
