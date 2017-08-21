@@ -1,6 +1,10 @@
 ## Install dependencies
 npm install
 
+## Gulp tasks
+gulp lint - checkstyle
+gulp minify - minification of js and css files
+
 ## Start server
 npm start
 

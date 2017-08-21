@@ -20,5 +20,9 @@ server.use((error, req, resp, next) => {
 });
 
 server.listen(port, error => {
-    Console.error("running server on port " + port + ", error" + error);
+    if (error) {
+        console.error(error);
+    } else {
+        console.log("running server on port " + port);
+    }
 });
