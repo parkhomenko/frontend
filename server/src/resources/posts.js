@@ -1,15 +1,11 @@
 import {Rest} from "express-restful-es6";
-import PostRepository from "../repository/posts-repository";
+import postRepository from "../repository/posts-repository";
 
 @Rest("/posts")
 class PostResource {
     
-    constructor() {
-        this.postRepository = new PostRepository();
-    }
-    
     get(req, resp, next) {
-        return this.postRepository.getPosts()
+        return postRepository.getPosts()
             .then(result => {
                 return {
                     status: "success",
@@ -20,7 +16,13 @@ class PostResource {
     }
     
     post(req, resp, next) {
-        return this.postRepository.newPost(this.body.title, this.body.content)
+        const post = {
+            title: this.body.title,
+            content: this.body.content,
+            pdate: new Date()
+        };
+        
+        return postRepository.newPost(post)
             .then(result => {
                 return {
                     status: "success"
@@ -30,7 +32,7 @@ class PostResource {
     }
     
     put(req, resp, next) {
-        return this.postRepository.editPost(this.body.id, this.body.title, this.body.content)
+        return postRepository.editPost(this.body)
             .then(result => {
                 return {
                     status: "success"
@@ -40,7 +42,7 @@ class PostResource {
     }
     
     delete(req, resp, next) {
-        return this.postRepository.deletePost(this.body.id)
+        return postRepository.deletePost(this.body.id)
             .then(result => {
                 return {
                     status: "success"

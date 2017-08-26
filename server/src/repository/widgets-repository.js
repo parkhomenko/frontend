@@ -1,6 +1,6 @@
 import Post from "../model/Post";
 
-class WidgetRepository {
+const widgetRepository = {
     
     getLatestPosts() {
         return new Promise((resolve, reject) => {
@@ -12,7 +12,7 @@ class WidgetRepository {
                 }
             });
         });
-    }
+    },
     
     getPostsCount() {
         return new Promise((resolve, reject) => {
@@ -25,6 +25,6 @@ class WidgetRepository {
             });
         });
     }
-}
+};
 
-export default WidgetRepository;
+export default widgetRepository;

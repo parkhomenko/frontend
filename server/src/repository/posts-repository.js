@@ -1,6 +1,6 @@
 import Post from "../model/Post";
 
-class PostRepository {
+const postRepository = {
 
     getPosts() {
         return new Promise((resolve, reject) => {
@@ -12,15 +12,9 @@ class PostRepository {
                 }
             });
         });
-    }
+    },
 
-    newPost(title, content) {
-        const post = {
-            title: title,
-            content: content,
-            pdate: new Date()
-        };
-
+    newPost(post) {
         return new Promise((resolve, reject) => {
             Post.create(post, (error, results) => {
                 if (error) {
@@ -30,16 +24,16 @@ class PostRepository {
                 }
             });
         });
-    }
+    },
 
-    editPost(id, title, content) {
+    editPost(post) {
         return new Promise((resolve, reject) => {
-            Post.get(id, (error, item) => {
+            Post.get(post.id, (error, item) => {
                 if (error) {
                     reject(error);
                 } else {
-                    item.title = title;
-                    item.content = content;
+                    item.title = post.title;
+                    item.content = post.content;
                     item.save(error => {
                         if (error) {
                             reject(error);
@@ -50,7 +44,7 @@ class PostRepository {
                 }
             });
         });
-    }
+    },
 
     deletePost(id) {
         return new Promise((resolve, reject) => {
@@ -69,6 +63,6 @@ class PostRepository {
             });
         });
     }
-}
+};
 
-export default PostRepository;
+export default postRepository;
