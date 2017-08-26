@@ -1,0 +1,94 @@
+@import "grid-container.scss";
+
+$font-stack: arial, sans-serif;
+$primary-color: gray;
+
+html, body {
+    padding: 0;
+    margin: 0;
+    font-size: 10px;
+    font-family: $font-stack;
+    color: $primary-color;
+}
+
+body {
+    font-size: 1.4rem;
+}
+
+h1 {
+    font-size: 2.4rem;
+}
+
+.tab-item {
+    width: 20rem;
+    font-size: 1.8rem;
+    padding-top: 1.2rem;
+    text-align: center;
+    border: 0.2rem solid gray;
+    position: relative;
+    
+    &:first-of-type {
+        border-right: 0;
+    }
+    
+    .fa {
+        position: absolute;
+        top: 1.3rem;
+        left: 1.5rem;
+    }
+}
+
+ul {
+    &.posts-content {
+        list-style-type: none;
+        display: inline-flex;
+        flex-direction: column;
+        padding-left: 1rem;
+        
+        li {
+            border-bottom: 0.1rem solid gray;
+            padding-bottom: 3rem;
+        }
+        
+        p {
+            font-size: 1.8rem;
+        }
+    }
+}
+
+.post-date {
+    margin-left: 2rem;
+    font-size: 1rem;
+}
+
+form {
+    &.posts_form {
+        display: flex;
+        flex-direction: column;
+        margin-top: 3rem;
+        padding-left: 1rem;
+        width: 30rem;
+    }
+}
+
+input {
+    margin-bottom: 1rem;
+    
+    &.submit {
+        width: 15rem;
+        margin-left: 15rem;
+        margin-top: 1rem;
+    }
+}
+
+a {
+    text-decoration: none;
+    
+    &:link, &:visited {
+        color: #555;
+    }
+    
+    &:hover, &:active {
+        color: red;
+    }
+}

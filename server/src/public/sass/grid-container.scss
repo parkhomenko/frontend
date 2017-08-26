@@ -1,0 +1,39 @@
+.grid-container {
+    display: grid;
+    height: 100%;
+    grid: 8rem 5rem 1fr / 2rem 20rem 2.5rem 1fr;
+    grid-template-areas:
+        ". . . header"
+        ". . . tabs"
+        ". posts . main"
+}
+
+@media screen and (max-width: 60rem) {
+    .grid-container {
+        grid: 8rem 5rem 1fr 4fr / 2rem 1fr;
+        grid-template-areas:
+            ". header"
+            ". tabs"
+            ". posts"
+            ". main"
+    }
+}
+
+.header {
+    grid-area: header;
+}
+
+.tabs {
+    grid-area: tabs;
+    display: flex;
+}
+
+.posts {
+    grid-area: posts;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    grid-area: main;
+}
