@@ -53,7 +53,7 @@ gulp.task("js", function() {
 
 gulp.task("watch", ["js"], function() {
     livereload.listen();
-    gulp.watch("./src/public/js/*.js", ["js"]);
+    gulp.watch("./src/public/js/**/*.js", ["js"]);
 });
 
 gulp.task("assemble", ["sass", "js"], function() {});

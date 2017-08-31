@@ -47,7 +47,23 @@ ul {
         
         li {
             border-bottom: 0.1rem solid gray;
-            padding-bottom: 3rem;
+            padding-bottom: 0;
+            
+            p {
+                &.links {
+                    margin: 1rem 0;
+                    font-size: 1.4rem;
+                    text-align: right;
+
+                    a {
+                        color: chocolate;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
         }
         
         p {

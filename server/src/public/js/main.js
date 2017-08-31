@@ -1,16 +1,47 @@
-import posts_data from "./data/posts";
-import posts_tmpl from "./templates/posts-tmpl";
-import _ from "lodash";
+import posts_service from "./services/post-service";
+import widgets_service from "./services/widget-service";
+import $ from "jquery";
 
-fillPosts();
+$(document).ready(() => {
+    posts_service.fillPosts();
+    widgets_service.latestPosts();
+    widgets_service.postsCount();
+});
 
-function fillPosts() {
-    posts_data.getPosts()
-        .then((response) => {
-            let main_section = document.getElementsByClassName("main")[0];
-            let posts_html = _.template(posts_tmpl)({
-                items: response
-            });
-            main_section.innerHTML = posts_html;
-        });
-}
+$("#menu-main").on("click", (e) => {
+    e.preventDefault();
+    posts_service.fillPosts();
+    window.history.pushState(null, null, "/posts");
+});
+
+$("#menu-post").on("click", (e) => {
+    e.preventDefault();
+    posts_service.renderPostForm();
+    window.history.pushState(null, null, "/post");
+});
+
+$(".main").on("submit", "#add-post", (e) => {
+    e.preventDefault();
+    posts_service.addPost();
+    window.history.pushState(null, null, "/posts");
+});
+
+$(".main").on("submit", "#save-post", (e) => {
+    e.preventDefault();
+    posts_service.editPost();
+    window.history.pushState(null, null, "/posts");
+});
+
+$(".main").on("click", ".edit-post", (e) => {
+    e.preventDefault();
+    const post_id = $(e.target).attr("href");
+    posts_service.renderPostEditForm(post_id);
+    window.history.pushState(null, null, "/post");
+});
+
+$(".main").on("click", ".delete-post", (e) => {
+    e.preventDefault();
+    const post_id = $(e.target).attr("href");
+    posts_service.deletePost(post_id);
+    window.history.pushState(null, null, "/posts");
+});

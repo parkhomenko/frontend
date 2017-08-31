@@ -1,25 +1,21 @@
+import requester from "./http-requester";
+
 const posts_data = {
     
     getPosts() {
-        return new Promise((resolve, reject) => {
-            let request = new XMLHttpRequest();
-            request.open("GET", "/posts");
-            
-            request.onload = () => {
-                if (request.status == 200) {
-                    let response_object = JSON.parse(request.response);
-                    resolve(response_object.data);
-                } else {
-                    reject(Error(request.statusText));
-                }
-            };
-            
-            request.onerror = () => {
-                reject(Error("Network Error"));
-            };
-            
-            request.send();
-        });
+        return requester("/posts", "GET");
+    },
+    
+    addPost(post) {
+        return requester("/posts", "POST", post);
+    },
+    
+    editPost(post) {
+        return requester("/posts", "PUT", post);
+    },
+    
+    deletePost(post) {
+        return requester("/posts", "DELETE", post);
     }
 };
 
