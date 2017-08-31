@@ -1,10 +1,10 @@
 ## Install dependencies
-npm install
+npm install  
 npm install --global gulp
 
 ## Gulp tasks
-gulp lint - checkstyle
-gulp assemble - assemble js and css
+gulp lint - checkstyle  
+gulp assemble - assemble js and css  
 gulp watch - live reload
 
 ## Start server
