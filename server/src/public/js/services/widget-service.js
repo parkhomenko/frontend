@@ -1,7 +1,5 @@
-import posts_tmpl from "../templates/latest-posts-tmpl";
-import posts_count_tmpl from "../templates/posts-count-tmpl";
+import templates from "../templates/templates";
 import widgets_data from "../data/widgets";
-import _ from "lodash";
 import $ from "jquery";
 
 const widgets_service = {
@@ -9,9 +7,7 @@ const widgets_service = {
     latestPosts() {
         widgets_data.getLatestPosts()
             .then((response) => {
-                let posts_html = _.template(posts_tmpl)({
-                    items: response
-                });
+                const posts_html = templates.getLatestPosts(response);
                 $(".latest-posts").html(posts_html);
             });
     },
@@ -19,12 +15,10 @@ const widgets_service = {
     postsCount() {
         widgets_data.getPostsCount()
             .then((response) => {
-                let posts_html = _.template(posts_count_tmpl)({
-                    count: response
-                });
+                const posts_html = templates.getPostsCount(response);
                 $(".post-count").html(posts_html);
             });
     }
-}
+};
 
 export default widgets_service;

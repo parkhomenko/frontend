@@ -40,7 +40,7 @@ gulp.task("js", function() {
         entries: ["./src/public/js/main.js"],
         debug: true
     })
-        .transform("babelify", {presets: ["es2015"]})
+        .transform("babelify", {presets: ["es2015", "stage-3"]})
         .bundle()
         .pipe(source("main.js"))
         .pipe(buffer())

@@ -1,28 +1,37 @@
 import posts_data from "../data/posts";
-import posts_tmpl from "../templates/posts-tmpl";
-import post_form_tmpl from "../templates/post-form-tmpl";
-import post_edit_form_tmpl from "../templates/post-edit-form-tmpl";
-import _ from "lodash";
+import templates from "../templates/templates";
+import validation_service from "./validation-service";
 import $ from "jquery";
 
 let post_items = {};
 
-const posts_service = {
+const post_service = {
 
-    fillPosts() {
-        posts_data.getPosts()
-            .then((response) => {
-                let posts_html = _.template(posts_tmpl)({
-                    items: response
-                });
-                $(".main").html(posts_html);
-                post_items = response;
-            });
+    async fillPosts() {
+        try {
+            const response = await posts_data.getPosts();
+            const posts_html = templates.getPosts(response);
+            post_items = response;
+            return posts_html;
+        } catch (error) {
+            throw new Error(error);
+        }
     },
 
     addPost() {
-        const post_name = $("input[name=post-name]")[0].value;
-        const post_content = $("textarea[name=post-content]")[0].value;
+        const post_name = getElementValue("input[name=post-name]");
+        const post_content = getElementValue("textarea[name=post-content]");
+        
+        if (!validation_service.validatePostTitle(post_name)) {
+            invalidateElement("input[name=post-name]");
+            return;
+        }
+        
+        if (!validation_service.validatePostBody(post_content)) {
+            invalidateElement("textarea[name=post-content]");
+            return;
+        }
+        
         const post = {
             title: post_name,
             content: post_content
@@ -35,9 +44,20 @@ const posts_service = {
     },
 
     editPost() {
-        const post_id = $("input[name=post-id]")[0].value;
-        const post_name = $("input[name=post-name]")[0].value;
-        const post_content = $("textarea[name=post-content]")[0].value;
+        const post_id = getElementValue("input[name=post-id]");
+        const post_name = getElementValue("input[name=post-name]");
+        const post_content = getElementValue("textarea[name=post-content]");
+        
+        if (!validation_service.validatePostTitle(post_name)) {
+            invalidateElement("input[name=post-name]");
+            return;
+        }
+        
+        if (!validation_service.validatePostBody(post_content)) {
+            invalidateElement("textarea[name=post-content]");
+            return;
+        }
+        
         const post = {
             id: post_id,
             title: post_name,
@@ -50,19 +70,22 @@ const posts_service = {
             });
     },
 
-    deletePost(post_id) {
+    async deletePost(post_id) {
         const post = {
             id: post_id
         };
-        posts_data.deletePost(post)
-            .then((response) => {
-                console.log("Post has been deleted");
-                this.fillPosts();
-            });
+        const response = await posts_data.deletePost(post);
+        if (response === 200) {
+            console.log(response);
+            console.log("Post has been deleted");
+            this.fillPosts();
+        } else {
+            alert("Post has not been deleted");
+        }
     },
 
     renderPostForm() {
-        let post_form_html = _.template(post_form_tmpl)();
+        const post_form_html = templates.getPostForm();
         $(".main").html(post_form_html);
     },
 
@@ -74,15 +97,30 @@ const posts_service = {
             post_name = items[0].title;
             post_content = items[0].content;
         }
-
-        let post_form_html = _.template(post_edit_form_tmpl)({
+        
+        const post_form_html = templates.getPostEditForm({
             post_id: post_id,
             post_name: post_name,
             post_content: post_content
         });
 
         $(".main").html(post_form_html);
+    },
+    
+    getPostItems() {
+        return post_items;
     }
 }
 
-export default posts_service;
+function getElementValue(element) {
+    const items = $(element);
+    if (items != 0) {
+        return items[0].value;
+    }
+}
+
+function invalidateElement(element) {
+    $(element).css("background", "red");
+}
+
+export default post_service;

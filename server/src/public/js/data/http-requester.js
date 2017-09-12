@@ -1,6 +1,6 @@
 const requester = (url, method, data) => {
     return new Promise((resolve, reject) => {
-        let request = new XMLHttpRequest();
+        const request = new XMLHttpRequest();
         request.open(method, url);
         if (method !== "GET") {
             request.setRequestHeader("Content-Type", "application/json");
@@ -8,8 +8,7 @@ const requester = (url, method, data) => {
 
         request.onload = () => {
             if (request.status == 200) {
-                let response_object = JSON.parse(request.response);
-                console.log(response_object);
+                const response_object = JSON.parse(request.response);
                 resolve(response_object.data);
             } else {
                 reject(Error(request.statusText));
@@ -26,6 +25,6 @@ const requester = (url, method, data) => {
             request.send(JSON.stringify(data));
         }
     });
-}
+};
 
 export default requester;

@@ -9,6 +9,6 @@ const widgets_data = {
     getPostsCount() {
         return requester("/widgets/count", "GET");
     }
-}
+};
 
 export default widgets_data;
